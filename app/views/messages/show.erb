@@ -1,0 +1,17 @@
+<!-- THIS PAGE DISPLAYS THE INDIVIDUAL INFO -->
+
+<p>
+  Artist: <%= @message.artist %>
+</p>
+
+<p>
+  Song: <%= @message.song_title %>
+</p>
+
+<a href="<%= @message.url %>">Check it out on Youtube</a>
+
+<small><p>
+  Song added to wall on <%= @message.created_at %>
+
+<hr/>
+<a href="/messages">Back To The Song Wall</a>
