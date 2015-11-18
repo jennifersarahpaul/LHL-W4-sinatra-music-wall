@@ -3,11 +3,15 @@
 <a href="/songs/new">Now's your chance! Add a song to the wall!</a>
 <hr/>
 
+<a href="/logout">Sign Out</a>
+<hr/>
+
 <% @songs.each do |song| %>
   <div class="song">
+    <form method="POST" action="/votes">
+      <input type="hidden" name="song_id" value="<%= song.id %>" />
+      <input type="submit" value="Vote" />
+    </form>
     <a href="/songs/<%= song.id %>"><h3><%= song.song_title %></a> <small>( by <%= song.artist %>)</small></h3>
   </div>
 <% end %>
-
-<hr/>
-<a href="/logout">Sign Out</a>

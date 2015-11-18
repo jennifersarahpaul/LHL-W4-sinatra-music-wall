@@ -5,13 +5,14 @@
 <% if @username %>
 
   <p><a class="button" href="/logout">Sign Out</a></p>
-  
+
 <% else %>
 
+  <!-- SIGN IN FORM -->
   <form method="post" action="/login">
     <p>
       <label for="username">Username:</label>
-      <input id="username" name="username" autofocus="autofocus" value="<%= session['username_given'] %>" />
+      <input id="username" name="username" value="<%= session['username_given'] %>" />
     </p>
     <p>
       <label for="password">Password:</label>
@@ -19,6 +20,21 @@
     </p>
     <p>
       <button>Sign In</button>
+    </p>
+  </form>
+
+  <!-- SIGN UP FORM -->
+  <form method="post" action="/signup">
+    <p>
+      <label for="username">Username:</label>
+      <input type="text" name="username" value="<%= session['username_given_signup'] %>"/></div>
+    </p>
+    <p>
+      <label for="password">Password:</label>
+      <input type="password" name="password" /></div>
+    </p>
+    <p>
+      <button>Sign Up</button>
     </p>
   </form>
 <% end %>
