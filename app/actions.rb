@@ -2,10 +2,6 @@
 # How should I order this? Should I have all GETS together, all POSTS together?
 # Should post '/songs' do come right after get '/songs' do?
 
-# DATABASE = {
-#   'jennifertigner' => '1234'
-# }
-
 # LOGIN
 get '/' do
   @username = session['username']
@@ -50,13 +46,33 @@ get '/songs/:id' do
 end
 
 post '/songs' do
-  @song = Song.new(
-    artist: params[:artist], song_title: params[:song_title], url: params[:url])
+  @song = Song.new(artist: params[:artist], song_title: params[:song_title], url: params[:url], user_id: params[:user_id])
   if @song.save
     redirect '/songs'
   else
     erb :'songs/new'
   end
+end
+
+get '/signup' do
+  @user = User.new
+  erb :'songs/index'
+end
+
+post '/signup' do
+  session['username_given_signup'] = params['username']
+  @user = User.new(username: params[:username], password: params[:password])
+  if @user.save
+    redirect '/songs'
+  else
+    redirect '/'
+  end
+end
+
+get '/votes/:id' do
+  song = Song.find(params[:id])
+  song.votes.new(user_id: current_user.id) if current_user
+  redirect '/songs'
 end
 
 post '/votes' do
@@ -68,17 +84,5 @@ post '/votes' do
   end
 end
 
-get '/signup' do
-  @user = User.new
-  erb :signup
-end
 
-post '/signup' do
-  session['username_given_signup'] = params['username']
-  @user = User.new(username: params[:username], password: params[:password])
-  if @user.save
-    redirect '/songs'
-  else
-    erb :'/signup'
-  end
-end
+
