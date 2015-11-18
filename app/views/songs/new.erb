@@ -1,0 +1,38 @@
+<!-- THIS PAGE IS THE FORM TO SUBMIT A SONG -->
+
+<% if @song.errors.any? %>
+  <div>
+    <strong>Some issues with your song, please fix them:</strong>
+    <ul>
+      <% @song.errors.full_songs.each do |song| %>
+        <li><%= song %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<form class="form-horizontal padding-top-100" method="post" action="/songs">
+  <div class="form-group">
+    <label class="col-sm-1 control-label">Artist:</label>
+    <div class="col-sm-2">
+      <input class="form-control" type="text" name="artist" value="<%= @song.artist %>">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1 control-label">Song:</label>
+    <div class="col-sm-2">
+      <input class="form-control" type="text" name="song_title" value="<%= @song.song_title %>">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-1 control-label">URL:</label>
+    <div class="col-sm-2">
+    <input class="form-control" type="text" name="url" value="<%= @song.url %>">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-1 col-sm-2">
+      <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+  </div>
+</form>

@@ -1,36 +1,59 @@
 # THIS PAGE DEFINES THE LOGIC/ROUTES
 
+DATABASE = {
+  'jennifertigner' => '1234'
+}
+
+# LOGIN
 get '/' do
+  @username = session['username']
   erb :index
 end
 
-# ON THE HOME PAGE, THE CLICK LEADS TO MESSAGES/INDEX
-get '/messages' do
-  @messages = Message.all
-  erb :'messages/index'
+get '/logout' do
+  session.clear
+  redirect '/'
 end
 
-# THE FORM PAGE
-get '/messages/new' do
-  @message = Message.new
-  erb :'messages/new'
+post '/login' do
+  session['username_given'] = params['username']
+  userexist = DATABASE[params['username']]
+  if userexist && userexist == params['password'] # BCrypt::Password.new(userexist) == params['password']
+    session['username'] = params['username']
+    @songs = Song.all
+    erb :'songs/index'
+  else
+    redirect '/'
+  end
+end
+
+# AFTER SONG ADDED, REDIRECT TO SONG WALL
+get '/songs' do
+  @songs = Song.all
+  erb :'songs/index'
+end
+
+# ADD-A-SONG PAGE
+get '/songs/new' do
+  @song = Song.new
+  erb :'songs/new'
 end
 
 # THE PAGE FOR EACH INDIVIDUAL SONG
-get '/messages/:id' do
-  @message = Message.find params[:id]
-  erb :'messages/show'
+get '/songs/:id' do
+  @song = Song.find params[:id]
+  erb :'songs/show'
 end
 
-post '/messages' do
-  @message = Message.new(
+post '/songs' do
+  @song = Song.new(
     artist:      params[:artist],
     song_title:  params[:song_title],
     url:         params[:url]
   )
-  if @message.save
-    redirect '/messages'
+  if @song.save
+    redirect '/songs'
   else
-    erb :'messages/new'
+    erb :'songs/new'
   end
 end

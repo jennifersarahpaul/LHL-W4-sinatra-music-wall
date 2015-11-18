@@ -1,0 +1,17 @@
+<!-- THIS PAGE DISPLAYS THE INDIVIDUAL INFO -->
+
+<p>
+  Artist: <%= @song.artist %>
+</p>
+
+<p>
+  Song: <%= @song.song_title %>
+</p>
+
+<a href="<%= @song.url %>">Check it out on Youtube</a>
+
+<small><p>
+  Song added to wall on <%= @song.created_at %>
+
+<hr/>
+<a href="/songs">Back To The Song Wall</a>

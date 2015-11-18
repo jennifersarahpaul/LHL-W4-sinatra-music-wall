@@ -1,3 +1,24 @@
-<!-- THIS IS THE HOME PAGE -->
+<!-- THIS IS THE HOME PAGE/SIGN IN PAGE -->
 
-<a href="/messages"><h1>Welcome To The Music Wall</h1></a>
+<h1>Welcome To The Music Wall</h1>
+
+<% if @username %>
+
+  <p><a class="button" href="/logout">Sign Out</a></p>
+  
+<% else %>
+
+  <form method="post" action="/login">
+    <p>
+      <label for="username">Username:</label>
+      <input id="username" name="username" autofocus="autofocus" value="<%= session['username_given'] %>" />
+    </p>
+    <p>
+      <label for="password">Password:</label>
+      <input id="password" name="password" type="password" />
+    </p>
+    <p>
+      <button>Sign In</button>
+    </p>
+  </form>
+<% end %>

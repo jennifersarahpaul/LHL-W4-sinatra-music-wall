@@ -1,0 +1,13 @@
+<!-- THIS IS THE MUSIC WALL PAGE (LISTS ALL THE SONGS) -->
+
+<a href="/songs/new">Now's your chance! Add a song to the wall!</a>
+<hr/>
+
+<% @songs.each do |song| %>
+  <div class="song">
+    <a href="/songs/<%= song.id %>"><h3><%= song.song_title %></a> <small>( by <%= song.artist %>)</small></h3>
+  </div>
+<% end %>
+
+<hr/>
+<a href="/logout">Sign Out</a>
